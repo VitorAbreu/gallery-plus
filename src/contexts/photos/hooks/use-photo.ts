@@ -3,6 +3,7 @@ import { api, fetcher } from "../../../helpers/api";
 import type { Photo } from "../models/photo";
 import type { PhotoNewFormSchema } from "../schemas";
 import { toast } from "sonner";
+import usePhotoAlbums from "./use-photo-albums";
 
 interface PhotoDetailResponse extends Photo {
   nextPhotoId?: string;
@@ -17,6 +18,7 @@ export default function usePhoto(id?: string) {
   });
 
   const queryClient = useQueryClient();
+  const { managePhotoOnAlbum } = usePhotoAlbums();
 
   async function createPhoto(payload: PhotoNewFormSchema) {
     try {
@@ -38,9 +40,7 @@ export default function usePhoto(id?: string) {
       );
 
       if (payload.albumsIds && payload.albumsIds.length) {
-        await api.put(`/photos/${photo.id}/albums`, {
-          albumsIds: payload.albumsIds,
-        });
+        await managePhotoOnAlbum(photo.id, payload.albumsIds);
       }
 
       // invalida a lista de fotos em cache para que a foto atual apareça na lista

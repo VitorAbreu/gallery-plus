@@ -37,6 +37,7 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
   const [isCreatingPhoto, setIsCreatingPhoto] = useTransition();
 
   const file = form.watch("file");
+  // cria uma url temporária para usar de referência ao src da imagem em preview
   const fileSource = file?.[0] ? URL.createObjectURL(file[0]) : undefined;
 
   const albumsIds = form.watch("albumsIds");
@@ -89,6 +90,7 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
               Você pode selecionar arquivos em PNG, JPG ou JPEG
             </Alert>
 
+            {/* replaceBy Permite que o component renderize qualquer reactNode passado tornando o preview customizavel */}
             <InputSingleFile
               form={form}
               allowedExtensions={["png", "jpg", "jpeg"]}

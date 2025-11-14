@@ -55,6 +55,7 @@ export default function InputSingleFile({
   replaceBy,
   ...props
 }: InputSingleFileProps) {
+  // useWatch observa alterações especificas do formulário para decidir o que renderizar
   const formValues = useWatch({ control: form.control });
   const name = props.name || "";
   const formFile: File = React.useMemo(

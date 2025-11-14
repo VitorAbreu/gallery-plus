@@ -10,6 +10,7 @@ const toSearchParams = createSerializer({
 });
 
 export default function usePhotos() {
+  // nuqs espelha estados do React na URL via queryStrings
   // useQueryState precisa de uma chave no caso albumId
   const [albumId, setAlbumId] = useQueryState("albumId");
   const [q, setQ] = useQueryState("q");
